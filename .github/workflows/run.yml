@@ -1,0 +1,25 @@
+name: Auto Push
+on: 
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+jobs:
+  Generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Setup git
+        run: |
+          git config user.name "VeryBaaad"
+          git config user.email "verybaaad@outlook.com"
+      - name: Generating commit
+        run: |
+          date > date.txt
+          git add .
+          git commit -m "Auto Push"
+          git push
